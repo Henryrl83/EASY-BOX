@@ -1,0 +1,126 @@
+<odoo>
+  <data>
+
+    <!-- VISTA DE ADMINISTRADOR -->
+    <record id="view_box_admin_form" model="ir.ui.view">
+        <field name="name">box.admin.form</field>
+        <field name="model">box.normativa</field>
+        <field name="arch" type="xml">
+            <form string="Normativa para Easy Box">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                            <field name="fecha_hora_mezcla" readonly="1"/>
+
+                        <group>
+                            <field name="temp_min"/>
+                            <field name="temp_max"/>
+                        </group>
+
+                        <group>
+                            <field name="humedad_min"/>
+                            <field name="humedad_max"/>
+                        </group>
+
+                        <group>
+                            <field name="tiempo_reaccion_min"/>
+                            <field name="tiempo_reaccion_max"/>  
+                        </group>
+
+                        <group>
+                            <field name="proporcion_Base"/>
+                            <field name="proporcion_Catalizador"/>
+                            <field name="proporcion_Diluyente"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- VISTA DE USUARIO -->
+    <record id="view_box_user_form" model="ir.ui.view">
+        <field name="name">box.user.form</field>
+        <field name="model">box.usuario</field>
+        <field name="arch" type="xml">
+            <form string="Datos del Usuario">
+
+<!--datos a incluir por el operario-->
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Mediciones del Operario</h1>
+                    </div>
+                    <group>
+                        <field name="fecha_hora_mezcla" readonly="1"/>
+                        <field name="name"/>
+                        <field name="operario_number"/>
+                        <field name="categoria_profesional"/>
+                        <field name="nivel_profesional"/>
+                        <field name="normativa_id"/>
+                    </group>
+                    <group>
+                        <field name="temp"/>
+                        <field name="humedad"/>
+                        <field name="tiempo_reaccion"/>
+                        <field name="proporcion_base"/>
+                        <field name="proporcion_catalizador"/>
+                        <field name="proporcion_diluyente"/>
+                    </group>
+                </sheet>
+<!--Hasta aquí es para introducir mediciones-->
+
+<!-- Campos de referencia de la normativa -->
+            <sheet>
+                <group>
+                    <h1><field name="normativa_id" invisible="1"/></h1>
+                    <h1><field name="name_normativa" readonly="1"/></h1>
+                </group>
+
+                <group>
+                    <field name="temp_min_normativa" readonly="1"/>
+                    <field name="temp_max_normativa" readonly="1"/>
+                    <field name="humedad_min_normativa" readonly="1"/>
+                    <field name="humedad_max_normativa" readonly="1"/>
+                    <field name="tiempo_reaccion_min_normativa" readonly="1"/>
+                    <field name="tiempo_reaccion_max_normativa" readonly="1"/>
+                    <field name="proporcion_Base_normativa" readonly="1"/>
+                    <field name="proporcion_Catalizador_normativa" readonly="1"/>
+                    <field name="proporcion_Diluyente_normativa" readonly="1"/>
+                </group>
+            </sheet>
+
+<!--Esto ya son etiquetas de cierre-->
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- DEFINICION DE LOS MENÚS -->
+
+<!-- Definición de Acciones -->
+<record model="ir.actions.act_window" id="box.action_admin">
+    <field name="name">Normativas</field>
+    <field name="res_model">box.normativa</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<record model="ir.actions.act_window" id="box.action_operario">
+    <field name="name">Operarios</field>
+    <field name="res_model">box.usuario</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+
+    <!-- Top menu item -->
+    <menuitem name="Easy Box" id="menu_box_root" sequence="10"/>
+
+    <!-- Menu categories -->
+    <menuitem name="Administrador" id="menu_box_admin" parent="menu_box_root" sequence="10" action="box.action_admin"/>
+    <menuitem name="Operario" id="menu_box_operario" parent="menu_box_root" sequence="20" action="box.action_operario"/>
+    <menuitem name="Normativa" id="menu_box_normativa" parent="menu_box_root" sequence="30"/>
+
+  </data>
+</odoo>
